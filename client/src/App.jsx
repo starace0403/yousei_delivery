@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("https://yousei-delivery.vercel.app/");
+const socket = io("https://yousei-delivery.onrender.com");
 
 function App() {
   const [username, setUsername] = useState("");

@@ -1,35 +1,29 @@
 const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
 
-const server = http.createServer(app);
+// 🔥 CORS 설정 (여기가 핵심)
+app.use(cors({
+  origin: "https://yousei-delivery.vercel.app", // 너 프론트 주소
+  credentials: true
+}));
 
-const io = new Server(server, {
-  cors: {
-    origin: "https://yousei-delivery.vercel.app",
-    methods: ["GET", "POST"]
-  }
+app.use(express.json());
+
+// 테스트용 API
+app.get("/", (req, res) => {
+  res.send("서버 연결 성공!");
 });
 
-io.on("connection", (socket) => {
-  console.log("유저 연결됨:", socket.id);
-
-  socket.on("createRoom", (roomId) => {
-    socket.join(roomId);
-    console.log("방 생성:", roomId);
-  });
-
-  socket.on("joinRoom", (roomId) => {
-    socket.join(roomId);
-    console.log("방 참가:", roomId);
-  });
+// 예시 API
+app.get("/api/test", (req, res) => {
+  res.json({ message: "백엔드 정상 작동!" });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+// 포트 설정 (Render용)
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, () => {
   console.log("서버 실행됨:", PORT);
 });
