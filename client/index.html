@@ -1,29 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>채팅</title>
-</head>
-<body>
-  <h1>채팅</h1>
-  <input id="msg" />
-  <button onclick="send()">전송</button>
-
-  <ul id="chat"></ul>
-
-  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io("http://localhost:3000"); // ✅ 먼저 선언
-
-    function send() {
-      const msg = document.getElementById("msg").value;
-      socket.emit("message", msg); // ✅ 이제 정상 접근 가능
-    }
-
-    socket.on("message", (msg) => {
-      const li = document.createElement("li");
-      li.innerText = msg;
-      document.getElementById("chat").appendChild(li);
-    });
-  </script>
-</body>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>연세 배달 모아</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
